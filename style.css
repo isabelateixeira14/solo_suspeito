@@ -358,3 +358,89 @@ img { display: block; width: 100%; height: auto; user-select: none; -webkit-user
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01s !important; }
 }
+
+/* =========================================================
+   CICLO DE VIDA (slide 6)
+   ========================================================= */
+.ciclo-sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.slide--ciclo .fase {
+  height: calc(var(--h) * var(--u));
+  margin: 0;
+}
+.slide--ciclo .fp {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  margin: 0;
+}
+.slide--ciclo .fase-img {
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+}
+.slide--ciclo .fase-titulo,
+.slide--ciclo .fase-txt {
+  --fs: 28;
+  --lh: 39;
+  --o: 2.5;
+  top: calc((var(--y) - (var(--lh) - var(--fs)) / 2) * var(--u));
+  font-size: calc(var(--fs) * var(--u));
+  line-height: calc(var(--lh) * var(--u));
+  font-weight: normal;
+  white-space: nowrap;
+  text-shadow:
+    calc(var(--o) * var(--u)) 0 0 #000,
+    calc(var(--o) * -1 * var(--u)) 0 0 #000,
+    0 calc(var(--o) * var(--u)) 0 #000,
+    0 calc(var(--o) * -1 * var(--u)) 0 #000,
+    calc(var(--o) * var(--u)) calc(var(--o) * var(--u)) 0 #000,
+    calc(var(--o) * -1 * var(--u)) calc(var(--o) * var(--u)) 0 #000,
+    calc(var(--o) * var(--u)) calc(var(--o) * -1 * var(--u)) 0 #000,
+    calc(var(--o) * -1 * var(--u)) calc(var(--o) * -1 * var(--u)) 0 #000;
+}
+.slide--ciclo .fase-titulo {
+  --o: 3;
+  font-family: "Arcade Gamer", "Press Start 2P", monospace;
+  color: var(--cor);
+}
+.slide--ciclo .fase-txt {
+  --fs: 28;
+  --lh: 39;
+  width: calc(var(--w) * var(--u));
+  font-family: "Press Start 2P", monospace;
+  color: var(--branco);
+  text-align: center;
+}
+
+/* Celular em pé: fases em coluna, setas trocadas por uma seta para baixo */
+@media (max-aspect-ratio: 1/1) {
+  .slide--ciclo .stage { gap: 6px; }
+  .slide--ciclo .fase {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .slide--ciclo .fp { position: static; }
+  .slide--ciclo .fase-img { width: min(62vw, 300px); order: 1; }
+  .slide--ciclo .fase-titulo { order: 0; text-align: center; font-size: calc(60 * var(--u)); line-height: 1.1; }
+  .slide--ciclo .fase-txt { order: 2; width: auto; font-size: calc(28 * var(--u)); line-height: 1.6; }
+  .slide--ciclo .seta { display: none; }
+  .slide--ciclo .fase::after {
+    content: "";
+    order: 3;
+    width: 28px;
+    height: 28px;
+    margin-top: 4px;
+    background: #fff;
+    clip-path: polygon(30% 0, 70% 0, 70% 50%, 100% 50%, 50% 100%, 0 50%, 30% 50%);
+  }
+  .slide--ciclo .fase:last-of-type::after { display: none; }
+}
